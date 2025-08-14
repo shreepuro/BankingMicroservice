@@ -1,0 +1,31 @@
+---
+- name: Install Java 21, docker.io, and Apache2
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install OpenJDK 21 (Java 21)
+      apt:
+        name: openjdk-21-jdk
+        state: present
+
+    - name: Install docker.io
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Apache2
+      apt:
+        name: apache2
+        state: present
+
+    - name: Ensure Apache2 service is started and enabled
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
